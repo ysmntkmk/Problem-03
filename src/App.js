@@ -45,27 +45,29 @@ const projects = [
 // Daha fazla bilgi için: https://heroicons.com/
 
 export default function PinnedProjects() {
+  const pinnedProjects = projects.filter(project => project.isPinned);
+
   return (
     <div className='projects-wrapper'>
       <h2 className='projects-title'>Pinlenmiş Projeler</h2>
       <ul className='projects-list'>
-        <li className='project-list-item'>
-          <div className={` project-initials`}>AB</div>
-          <div className='project-content-wrapper'>
-            <div className='project-content'>
-              <a href='#' className='project-link'>
-                İsim
-              </a>
-              <p className='project-members'>0 Üye</p>
+        {pinnedProjects.map((project, index) => (
+          <li key={index} className='project-list-item'>
+            <div className={`project-initials ${project.bgColor}`}>{project.initials}</div>
+            <div className='project-content-wrapper'>
+              <div className='project-content'>
+                <a href={project.href} className='project-link'>
+                  {project.name}
+                </a>
+                <p className='project-members'>{project.members} Üye</p>
+              </div>
+              <div className='project-button-wrapper'>
+                <EllipsisVerticalIcon className='h-5 w-5 text-gray-500' />
+              </div>
             </div>
-            <div className='project-button-wrapper'>
-              <button type='button' className='project-button'>
-                <EllipsisVerticalIcon className='project-icon' />
-              </button>
-            </div>
-          </div>
-        </li>
+          </li>
+        ))}
       </ul>
     </div>
-  )
+  );
 }
